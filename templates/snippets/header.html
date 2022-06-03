@@ -1,0 +1,103 @@
+{% load static %}
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+  crossorigin="anonymous"
+/>
+<style type="text/css">
+  .container {
+    max-width: 960px;
+  }
+
+  .search-bar{
+    max-width: 500px;
+    width: 100%;
+  }
+  form{
+    width: 100%;
+  }
+</style>
+<!-- HEADER -->
+
+<div
+  class="d-flex flex-column flex-md-row align-items-center pb-1 mb-4 border-bottom"
+>
+{% if request.user.is_authenticated %}
+{% if request.user.is_admin %}
+<a href="{% url 'dashboard' %}"> <img class="img-fluid d-block mx-5 " src="{% static 'logo.png' %}" width="70" height="70"> </a>
+<span class="fs-4 p-3">Hello Admin </span>
+<a href="{% url 'surveys' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">My survey</a>
+<a href="{% url 'create_product' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">Create Product</a>
+<a href="{% url 'produit_list_admin' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">My Products</a>
+
+{% elif not request.user.is_admin%}
+<a href="{% url 'home' %}"> <img class="img-fluid d-block mx-5 " src="{% static 'logo.png' %}" width="70" height="70"> </a>
+<span class="fs-4 p-3">Hello User </span>
+<a href="{% url 'list' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">Surveys</a>
+<a href="{% url 'produit_list' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">Product</a>
+
+{% endif %}
+{% else %}
+<a href="{% url 'home' %}"> <img class="img-fluid d-block mx-5 " src="{% static 'logo.png' %}" width="70" height="70"> </a>
+
+{% endif %}
+
+<div class="search-bar mt-sm-2 mr-2">
+</div>
+  <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto p-4">
+    {% if request.user.is_authenticated %}
+    {% if request.user.is_admin %}
+    <a href="{% url 'create' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">Create Survey</a>
+    <a
+      class="me-3 py-2 text-dark text-decoration-none"
+      href="{% url 'account' %}"
+      >Account</a
+    >
+    <a
+      class="me-3 py-2 text-dark text-decoration-none"
+      href="{% url 'logout' %}"
+      >Logout</a
+    >
+
+  {% elif not request.user.is_admin%}
+  <p class="m-auto py-2 me-3"> Points : </p>
+  {% comment %} collecter les points des surveys {% endcomment %}
+
+  <p class="m-auto py-2 me-5 color-red">   
+    {{ request.user.points }}
+  </p>
+
+
+  <a
+  class="me-3 py-2 text-dark text-decoration-none"
+  href="{% url 'account' %}"
+  >Account</a
+>
+<a
+  class="me-3 py-2 text-dark text-decoration-none"
+  href="{% url 'logout' %}"
+  >Logout</a
+>
+</nav>
+  {% endif %}
+  {% else %}
+  <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto p-2">
+    <a
+      class="me-3 py-2 text-dark text-decoration-none"
+      href="{% url 'register' %}"
+      >Register</a
+    >
+    <a
+      class="btn btn-outline-primary me-3 py-2 text-dark text-decoration-none"
+      href="{% url 'login' %}"
+      >Login</a
+    >
+  </nav>
+  {% endif %}
+</div>
+
+<script type="text/javascript"> 
+document.getElementById("id_q").value = "{{query}}";
+</script>
+<!-- END HEADER -->

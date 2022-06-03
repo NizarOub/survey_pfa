@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Thanks - Product{% endblock %}
+
+{% block content %}
+<div class="ui center aligned basic very padded segment">
+    <h1 class="ui header">Thanks for Buy this Product {{ produit.Nom_Produit }}! All done.</h1>
+</div>
+<a class="d-flex justify-content-center" href="{% url 'produit_list' %}">
+    <div class="ui button ">Back</div>
+</a>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<style type="text/css">
+  .create-form {
+	    width: 100%;
+	    max-width: 100%;
+	    padding: 15px;
+	    margin: auto;
+  	}
+
+  	.submit-button{
+  		max-width: 200px;
+  	}
+</style>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-7 offset-lg-1">
+			<form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+				<!-- title -->
+				<div class="form-group">
+					<label for="id_Nom_Produit">Nom Produit</label>
+					<input class="form-control" type="text" name="Nom_Produit" id="id_Nom_Produit" placeholder="Nom Produit" required autofocus>
+				</div>
+
+				<!-- Body -->
+				<div class="form-group">
+					<label for="id_Prix">Prix</label>
+					<input class="form-control" type="number" name="Prix" id="id_Prix" placeholder="Prix" required>
+				</div>
+				<!-- Body -->
+				<div class="form-group">
+					<label for="id_Quantite">Quantite</label>
+					<input class="form-control" type="number" name="Quantite" id="id_Quantite" placeholder="Quantite" required>
+				</div>
+				<!-- Image -->
+				<div class="form-group">
+					<label for="id_Image">Image</label>
+					<input  type="file" name="Image" id="id_Image" accept="images/*" required>
+				</div>
+
+				<!-- Submit btn -->
+				<button class="submit-button btn btn-lg btn-primary btn-block" type="submit">POST</button>
+				<a href="{% url 'dashboard' %}">
+					<div class="ui button">Cancel</div>
+				</a>
+			</form>	
+		</div>
+	</div>
+</div>
+
+
+
+
+{% endblock content %}

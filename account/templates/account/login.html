@@ -1,0 +1,81 @@
+{% extends 'base.html' %} 
+{% load static %}{% block content %}
+<style type="text/css">
+  .form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+  }
+
+  .form-signin .form-floating:focus-within {
+    z-index: 2;
+  }
+
+  .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .h3{
+    text-align: center;
+    
+  }
+</style>
+
+<main class="form-signin" >
+  <form method="post">  {% csrf_token %}
+    {% comment %} <div class="d-flex flex-column pb-3">
+      <img class="img-fluid mx-auto d-block" src="{% static 'logo.png' %}" alt="logo"  width="72" height="72">
+    </div> {% endcomment %}
+
+    <h1 class="h3 mb-3 fw-normal">Login</h1>
+
+    <div class="form-floating">
+      <input
+        type="email"
+        name="email"
+        class="form-control"
+        id="floatingInput"
+        placeholder="name@example.com"
+      />
+      <label for="floatingInput">Email address</label>
+
+    </div>
+    <div class="form-floating">
+      <input
+        type="password"
+        name = "password"
+        class="form-control"
+        id="floatingPassword"
+        placeholder="Password"
+      />
+      <label for="floatingPassword">Password</label>
+
+    </div>
+    {% for field in login_form %}
+    <p>
+     {% for error in field.errors %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %} 
+  </p>
+  {% endfor %}
+  {% if login_form.non_field_errors %}
+  <div>
+    <p style="color: red">{{ login_form.non_field_errors }}</p>
+  </div>
+
+  {% endif %}
+    <button class="w-100 btn btn-lg btn-primary" type="submit" >Log in</button>
+  </form>
+  <div class="d-flex flex-column">
+    <a class="m-auto " style="text-decoration: none;" href="{% url 'password_reset'%}">Reset Password</a> 
+  </div>
+</main>
+{% endblock content %}

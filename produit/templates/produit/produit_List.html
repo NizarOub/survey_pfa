@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<body class="text-center text-black ">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <main class="px-3">
+        {% if produit_List %}
+        <div class="row">
+            {% for P in produit_List %}
+                  <div class="col-sm-3 ">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5  style="text-align:center" class="card-title">{{ P.Nom_Produit}}</h5>
+                              <img src={{ P.Image.url }} alt="{{ P.Nom_Produit }}" style="width:100%">
+                              <p class="card-text">Quantité : {{ P.Quantite }} Piéces</p> 
+                              <p class="card-text">Prix : {{ P.Prix }} Points</p> 
+                              {% if not request.user.is_admin %}
+                              <a href="{{P.id}}" class="btn btn-primary">buy</a>
+                              {% endif %}
+                              
+                          </div>
+                      </div>
+                  </div>
+            {% endfor %}
+        </div>
+        {% else %}
+          <p>Aucun produit</p>
+        {% endif %}
+</div>
+</body>
+
+{% endblock content %}
