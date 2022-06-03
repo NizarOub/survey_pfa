@@ -109,3 +109,16 @@ def user_list(request):
             return redirect("surveys")
     else:
         return redirect("must_authenticate")
+
+
+# Admin can delete an existing user
+def delete_user(request, user_id):
+    if request.user.is_authenticated:
+        if request.user.is_admin:
+            user = Account.objects.get(pk=user_id)
+            user.delete()
+            return redirect("user_list")
+        else:
+            return redirect("surveys")
+    else:
+        return redirect("must_authenticate")
