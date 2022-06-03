@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from personal.views import (home_screen_view,)
 from account.views import (
-    registration_view, logout_view, login_view, account_view, must_authenticate_view, dashboard)
+    registration_view, logout_view, login_view, account_view, must_authenticate_view, dashboard, user_list)
 from django.contrib.auth import views as auth_views
 from survey.views import (create, edit, survey_list,
                           delete, question_create, option_create, detail, start, submit, thanks, survey_list_c)
@@ -34,6 +34,7 @@ urlpatterns = [
     path('must_authenticate/', must_authenticate_view, name='must_authenticate'),
     path('register/', registration_view, name='register'),
     path('dashboard/', dashboard, name='dashboard'),
+    path('user_list/', user_list, name='user_list'),
     path('surveys/', survey_list, name='surveys'),
     path('list/', survey_list_c, name='list'),
     path("surveys/<int:pk>/", detail, name="detail"),

@@ -11,10 +11,11 @@
                       <div class="card">
                           <div class="card-body">
                               <h5  style="text-align:center" class="card-title">{{ P.Nom_Produit}}</h5>
-                              <img src={{ P.Image.url }} alt="{{ P.Nom_Produit }}" style="width:100%">
+                              <img src={{ P.Image.url }} alt="{{ P.Nom_Produit }}" style="width:80%">
                               <p class="card-text">Quantité : {{ P.Quantite }} Piéces</p> 
                               <p class="card-text">Prix : {{ P.Prix }} Points</p> 
                               {% if not request.user.is_admin %}
+                              <p class="card-text">Created by : {{ P.author.username }}</p> 
                               <a href="{{P.id}}" class="btn btn-primary">buy</a>
                               {% endif %}
                               

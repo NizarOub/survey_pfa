@@ -16,7 +16,7 @@ class Product(models.Model):
     Nom_Produit = models.CharField(max_length=50)
     Prix = models.IntegerField(default=0)
     Quantite = models.IntegerField()
-    Image = models.ImageField(upload_to='', blank=False)
+    Image = models.ImageField(upload_to='', blank=True, null=True)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 

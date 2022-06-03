@@ -30,6 +30,8 @@
 <a href="{% url 'surveys' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">My survey</a>
 <a href="{% url 'create_product' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">Create Product</a>
 <a href="{% url 'produit_list_admin' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">My Products</a>
+<a href="{% url 'user_list' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">Users</a>
+
 
 {% elif not request.user.is_admin%}
 <a href="{% url 'home' %}"> <img class="img-fluid d-block mx-5 " src="{% static 'logo.png' %}" width="70" height="70"> </a>

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<body class="text-center text-black ">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <main class="px-3">
+        {% if users %}
+        <div class="row">
+            {% for u in users %}
+
+                  <div class="col-sm-3 ">
+                      <div class="card">
+                          <div class="card-body">
+                                <h5 class="card-title">{{ u.username }}</h5>
+                                <p class="card-text">{{ u.email }}</p>
+                                {% if u.is_admin %}
+                                <p class="card-text"> Role : Admin</p>
+                                {% elif not u.is_admin %}
+                                <p class="card-text"> Points : {{ u.points }}</p>
+                                <p class="card-text"> Role : User</p>
+
+                                {% endif %}
+                          </div>
+                      </div>
+                  </div>
+            {% endfor %}
+        </div>
+        {% else %}
+          <p>Aucun produit</p>
+        {% endif %}
+</div>
+</body>
+
+{% endblock content %}

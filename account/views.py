@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from django.http import HttpResponse
+from account.models import Account
 
 
 def registration_view(request):
@@ -97,3 +98,14 @@ def account_view(request):
 
 def must_authenticate_view(request):
     return render(request, "account/must_authenticate.html", {})
+
+
+def user_list(request):
+    if request.user.is_authenticated:
+        if request.user.is_admin:
+            users = Account.objects.all()
+            return render(request, "account/user_list.html", {"users": users})
+        else:
+            return redirect("surveys")
+    else:
+        return redirect("must_authenticate")
