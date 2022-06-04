@@ -6,18 +6,28 @@
     <main class="px-3">
         {% if users %}
         <div class="row">
-            {% for u in users %}
+            {% for user in users %}
 
                   <div class="col-sm-3 ">
                       <div class="card">
                           <div class="card-body">
-                                <h5 class="card-title">{{ u.username }}</h5>
-                                <p class="card-text">{{ u.email }}</p>
-                                {% if u.is_admin %}
+                                <h5 class="card-title">{{ user.username }}</h5>
+                                <p class="card-text">{{ user.email }}</p>
+                                {% if user.is_admin %}
                                 <p class="card-text"> Role : Admin</p>
-                                {% elif not u.is_admin %}
-                                <p class="card-text"> Points : {{ u.points }}</p>
+                                {% elif user.is_superuser %}
+                                <p class="card-text"> Role : Superuser</p>
+                                <form method="post" action="{% url 'user_delete' user.pk %}" style="display: inline-block;">
+                                    {% csrf_token %}
+                                    <button class=" ui button">delete</button>
+                                </form>
+                                {% else %}
+                                <p class="card-text"> Points : {{ user.points }}</p>
                                 <p class="card-text"> Role : User</p>
+                                <form method="post" action="{% url 'user_delete' user.pk %}" style="display: inline-block;">
+                                    {% csrf_token %}
+                                    <button class=" ui button">delete</button>
+                                </form>
 
                                 {% endif %}
                           </div>

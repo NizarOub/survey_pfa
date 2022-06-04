@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from django.http import HttpResponse
@@ -111,14 +111,15 @@ def user_list(request):
         return redirect("must_authenticate")
 
 
-# Admin can delete an existing user
-def delete_user(request, user_id):
+# Admin can delete user from users list
+def user_delete(request, pk):
     if request.user.is_authenticated:
         if request.user.is_admin:
-            user = Account.objects.get(pk=user_id)
+            user = get_object_or_404(Account, pk=pk)
             user.delete()
             return redirect("user_list")
         else:
             return redirect("surveys")
     else:
         return redirect("must_authenticate")
+
