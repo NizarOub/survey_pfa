@@ -1,0 +1,81 @@
+{% extends 'base.html' %} {% block content %}
+
+<style type="text/css">
+  .form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+  }
+
+
+  .form-signin .form-floating:focus-within {
+    z-index: 2;
+  }
+
+  .form-signin input[type="email"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .form-signin input[type="username"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .h3{
+    text-align: center;
+    
+  }
+
+</style>
+
+<main class="form-signin" >
+  <form method="post">  {% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal">Account</h1>
+
+    <div class="form-floating">
+      <input
+        type="email"
+        name="email"
+        class="form-control"
+        id="floatingInput"
+        placeholder="name@example.com"
+        value={{account_form.initial.email}}
+      />
+      <label for="floatingPassword">Email address</label>
+
+    </div>
+    <div class="form-floating">
+      <input
+        type="text"
+        name = "username"
+        class="form-control"
+        id="floatingUsername"
+        placeholder="username"
+        value={{account_form.initial.username}}
+      />
+      <label for="floatingPassword">Username</label>
+    </div>
+    {% for field in account_form %}
+    <p>
+     {% for error in field.errors %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %} 
+  </p>
+  {% endfor %}
+  {% if account_form.non_field_errors %}
+  <div>
+    <p style="color: red">{{ account_form.non_field_errors }}</p>
+  </div>
+
+  {% endif %}
+  {% if success_message %}
+  <p style="color: green; text-aligne: center;"> {{success_message}} <p/>
+  {% endif %}
+    <button class="w-100 btn btn-lg btn-primary" type="submit" >Save Changes</button>
+  </form>
+</main>
+
+{% endblock content %}

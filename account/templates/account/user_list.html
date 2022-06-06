@@ -28,7 +28,10 @@
                                     {% csrf_token %}
                                     <button class=" ui button">delete</button>
                                 </form>
-
+                                <form method="post" action="{% url 'user_update' user.pk %}" style="display: inline-block;">
+                                    {% csrf_token %}
+                                    <button class=" ui button mt-3">Modify</button>
+                                </form>
                                 {% endif %}
                           </div>
                       </div>

@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from account.models import Account
 
 
-
 @login_required
 def produit_list(request):
     user = request.user
@@ -66,5 +65,18 @@ def create_product(request):
         context['form'] = form
 
         return render(request, "produit/create_product.html", context)
+    else:
+        return redirect('produit_list')
+
+# admin can delete his product
+
+
+@login_required
+def delete_product(request, id):
+    user = request.user
+    if user.is_admin:
+        produit = Product.objects.get(id=id)
+        produit.delete()
+        return redirect('produit_list_admin')
     else:
         return redirect('produit_list')

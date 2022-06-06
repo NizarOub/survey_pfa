@@ -74,6 +74,7 @@ def account_view(request):
             form.initial = {
                 "email": request.POST['email'],
                 "username": request.POST['username'],
+                "password": request.POST['password'],
             }
             form.save()
             context['success_message'] = "Updated"
@@ -83,6 +84,7 @@ def account_view(request):
             initial={
                 "email": request.user.email,
                 "username": request.user.username,
+                "password": request.user.password,
             }
         )
 
@@ -109,5 +111,33 @@ def user_delete(request, pk):
         user = get_object_or_404(Account, pk=pk)
         user.delete()
         return redirect("user_list")
+    else:
+        return redirect("surveys")
+
+# admin can modify users informations
+
+
+@login_required
+def user_update(request, pk):
+    if request.user.is_admin:
+        user = get_object_or_404(Account, pk=pk)
+        if request.POST:
+            form = AccountUpdateForm(request.POST, instance=user)
+            if form.is_valid():
+                form.initial = {
+                    "email": request.POST['email'],
+                    "username": request.POST['username'],
+                }
+                form.save()
+                return redirect("user_list")
+        else:
+            form = AccountUpdateForm(
+
+                initial={
+                    "email": user.email,
+                    "username": user.username,
+                }
+            )
+        return render(request, "account/user_edit.html", {"form": form})
     else:
         return redirect("surveys")

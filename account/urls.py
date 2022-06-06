@@ -12,4 +12,5 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
     path('user_list/', user_list, name='user_list'),
     path('user_list/<int:pk>/delete', user_delete, name='user_delete'),
+    path('user_list/<int:pk>/update', user_update, name='user_update'),
 ]

@@ -14,6 +14,10 @@
                               <img src={{ P.Image.url }} alt="{{ P.Nom_Produit }}" style="width:80%">
                               <p class="card-text">Quantité : {{ P.Quantite }} Piéces</p> 
                               <p class="card-text">Prix : {{ P.Prix }} Points</p> 
+                              <form method="post" action="{% url 'delete_product' P.pk %}" style="display: inline-block;">
+                                {% csrf_token %}
+                                <button class=" ui button">delete</button>
+                            </form>
                               {% if not request.user.is_admin %}
                               <p class="card-text">Created by : {{ P.author.username }}</p> 
                               <a href="{{P.id}}" class="btn btn-primary">buy</a>
