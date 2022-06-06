@@ -137,10 +137,6 @@ def detail(request, pk):
             raise Http404()
 
         questions = survey.question_set.all()
-
-        # Calculate the results.
-        # This is a naive implementation and it could be optimised to hit the database less.
-        # See here for more info on how you might improve this code: https://docs.djangoproject.com/en/3.1/topics/db/aggregation/
         for question in questions:
             option_pks = question.option_set.values_list("pk", flat=True)
             total_answers = Answer.objects.filter(
@@ -168,6 +164,7 @@ def detail(request, pk):
         return redirect("list")
 
 
+@login_required
 def start(request, pk):
     """Survey-taker can start a survey"""
     survey = get_object_or_404(Survey, pk=pk, is_active=True)
@@ -178,6 +175,7 @@ def start(request, pk):
     return render(request, "survey/start.html", {"survey": survey})
 
 
+@login_required
 def submit(request, survey_pk, sub_pk):
     """Survey-taker submit their completed survey."""
     try:
@@ -208,7 +206,8 @@ def submit(request, survey_pk, sub_pk):
                     )
                 user.points += survey.points
                 user.save()
-                survey.submission_set.filter(pk=sub_pk).update(is_complete=True)
+                survey.submission_set.filter(
+                    pk=sub_pk).update(is_complete=True)
                 sub.is_complete = True
                 sub.save()
             return redirect("thanks", pk=survey_pk)
@@ -224,6 +223,7 @@ def submit(request, survey_pk, sub_pk):
     )
 
 
+@login_required
 def thanks(request, pk):
     """Survey-taker receives a thank-you message."""
     survey = get_object_or_404(Survey, pk=pk, is_active=True)

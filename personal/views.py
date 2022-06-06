@@ -1,6 +1,4 @@
-from operator import attrgetter
 from django.shortcuts import render
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 # Create your views here.
 
 

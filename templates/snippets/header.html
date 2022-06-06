@@ -19,25 +19,22 @@
   }
 </style>
 <!-- HEADER -->
-
 <div
   class="d-flex flex-column flex-md-row align-items-center pb-1 mb-4 border-bottom"
 >
 {% if request.user.is_authenticated %}
 {% if request.user.is_admin %}
 <a href="{% url 'dashboard' %}"> <img class="img-fluid d-block mx-5 " src="{% static 'logo.png' %}" width="70" height="70"> </a>
-<span class="fs-4 p-3">Hello Admin </span>
-<a href="{% url 'surveys' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">My survey</a>
-<a href="{% url 'create_product' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">Create Product</a>
-<a href="{% url 'produit_list_admin' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">My Products</a>
-<a href="{% url 'user_list' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">Users</a>
+<a href="{% url 'surveys' %}" class="btn btn-lg btn-outline-secondary fw-bold  mx-4 ">My survey</a>
+<a href="{% url 'create_product' %}" class="btn btn-lg btn-outline-secondary fw-bold  mx-4 ">Create Product</a>
+<a href="{% url 'produit_list_admin' %}" class="btn btn-lg btn-outline-secondary fw-bold  mx-4  ">My Products</a>
+<a href="{% url 'user_list' %}" class="btn btn-lg btn-outline-secondary fw-bold  mx-4 ">Users</a>
 
 
 {% elif not request.user.is_admin%}
 <a href="{% url 'home' %}"> <img class="img-fluid d-block mx-5 " src="{% static 'logo.png' %}" width="70" height="70"> </a>
-<span class="fs-4 p-3">Hello User </span>
-<a href="{% url 'list' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">Surveys</a>
-<a href="{% url 'produit_list' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">Product</a>
+<a href="{% url 'list' %}" class="btn btn-lg btn-outline-secondary fw-bold  mx-4  ">Surveys</a>
+<a href="{% url 'produit_list' %}" class="btn btn-lg btn-outline-secondary fw-bold  mx-4  ">Product</a>
 
 {% endif %}
 {% else %}
@@ -50,21 +47,20 @@
   <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto p-4">
     {% if request.user.is_authenticated %}
     {% if request.user.is_admin %}
-    <a href="{% url 'create' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-black mx-4 ">Create Survey</a>
+    <a href="{% url 'create' %}" class="btn btn-lg btn-outline-secondary fw-bold  mx-4  ">Create Survey</a>
     <a
-      class="me-3 py-2 text-dark text-decoration-none"
+      class="me-3 py-2 text-info fs-5 text-decoration-none fw-bold"
       href="{% url 'account' %}"
       >Account</a
     >
     <a
-      class="me-3 py-2 text-dark text-decoration-none"
+      class="me-3 py-2 text-danger fs-5 text-decoration-none fw-bold"
       href="{% url 'logout' %}"
       >Logout</a
     >
 
   {% elif not request.user.is_admin%}
   <p class="m-auto py-2 me-3"> Points : </p>
-  {% comment %} collecter les points des surveys {% endcomment %}
 
   <p class="m-auto py-2 me-5 color-red">   
     {{ request.user.points }}
@@ -86,20 +82,19 @@
   {% else %}
   <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto p-2">
     <a
-      class="me-3 py-2 text-dark text-decoration-none"
+      class="me-3 py-2 text-success fs-5 text-decoration-none fw-bold"
       href="{% url 'register' %}"
       >Register</a
     >
     <a
-      class="btn btn-outline-primary me-3 py-2 text-dark text-decoration-none"
+      class="me-3 py-2 text-success fs-5 text-decoration-none fw-bold"
       href="{% url 'login' %}"
       >Login</a
     >
   </nav>
   {% endif %}
 </div>
-
-<script type="text/javascript"> 
-document.getElementById("id_q").value = "{{query}}";
-</script>
 <!-- END HEADER -->
+
+
+

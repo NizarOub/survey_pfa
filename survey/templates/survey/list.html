@@ -3,7 +3,6 @@
 
 {% block content %}
 <div class="ui center aligned basic very padded segment">
-    <h1 class="ui header">Welcome {{ request.user.username }}</h1>
     <a href="{% url 'create' %}">
         <div class="ui primary button">Create a new survey</div> 
     </a>
@@ -13,7 +12,7 @@
     <h2 class="ui header">Your surveys</h2>
     <table class="ui celled table">
         <thead>
-            <tr>
+            <tr class="bg-black">
                 <th>Title</th>
                 <th>Created At</th>
                 <th>Actions</th>

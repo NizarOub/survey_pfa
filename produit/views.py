@@ -1,12 +1,10 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 from produit.models import Product
 from produit.forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from account.models import Account
-# Create your views here.
-# liste des produits
+
 
 
 @login_required
@@ -22,7 +20,6 @@ def produit_list(request):
         return redirect('must_authenticate')
 
 
-# admin can see his list of produits
 @login_required
 def produit_list_admin(request):
     user = request.user

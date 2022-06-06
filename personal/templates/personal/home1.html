@@ -2,12 +2,11 @@
 {% load static %}
 {% block content %}
 <style type="text/css"> 
-
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
   color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
+  text-shadow: none;
 }
     .cover-container {
         max-width: 42em;
@@ -16,13 +15,13 @@
 <body class="text-center text-black ">
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <main class="px-3">
-    <h1>Welcome to our platform</h1>
+    <h1>Welcome To Our Platform</h1>
     <p class="lead "> This is a survey platform made by two students for their PFA. </p>
     <p class="lead "> I hope you like it and don't hesitate to try . </p>
 
 
     <p class="lead">
-      <a href="{% url 'must_authenticate' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-light">Create Survey</a>
+      <a href="{% url 'must_authenticate' %}" class="btn btn-lg btn-outline-secondary fw-bold  mx-4">Create Survey</a>
     </p>
   </main>
 </div>

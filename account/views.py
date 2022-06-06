@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
-from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
-from django.http import HttpResponse
+from account.forms import *
 from account.models import Account
+from django.contrib.auth.decorators import login_required
 
 
 def registration_view(request):
@@ -54,25 +54,19 @@ def login_view(request):
 
     context['login_form'] = form
 
-    # print(form)
     return render(request, "account/login.html", context)
 
 
+@login_required
 def dashboard(request):
-    if request.user.is_authenticated:
-        if request.user.is_admin:
-            return render(request, "account/dashboard.html", {})
-        else:
-            return redirect("home")
+    if request.user.is_admin:
+        return render(request, "account/dashboard.html", {})
     else:
-        return redirect("must_authenticate")
+        return redirect("home")
 
 
+@login_required
 def account_view(request):
-
-    if not request.user.is_authenticated:
-        return redirect("login")
-
     context = {}
     if request.POST:
         form = AccountUpdateForm(request.POST, instance=request.user)
@@ -100,26 +94,20 @@ def must_authenticate_view(request):
     return render(request, "account/must_authenticate.html", {})
 
 
+@login_required
 def user_list(request):
-    if request.user.is_authenticated:
-        if request.user.is_admin:
-            users = Account.objects.all()
-            return render(request, "account/user_list.html", {"users": users})
-        else:
-            return redirect("surveys")
+    if request.user.is_admin:
+        users = Account.objects.all()
+        return render(request, "account/user_list.html", {"users": users})
     else:
-        return redirect("must_authenticate")
+        return redirect("surveys")
 
 
-# Admin can delete user from users list
+@login_required
 def user_delete(request, pk):
-    if request.user.is_authenticated:
-        if request.user.is_admin:
-            user = get_object_or_404(Account, pk=pk)
-            user.delete()
-            return redirect("user_list")
-        else:
-            return redirect("surveys")
+    if request.user.is_admin:
+        user = get_object_or_404(Account, pk=pk)
+        user.delete()
+        return redirect("user_list")
     else:
-        return redirect("must_authenticate")
-
+        return redirect("surveys")
