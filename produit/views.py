@@ -68,7 +68,6 @@ def create_product(request):
     else:
         return redirect('produit_list')
 
-# admin can delete his product
 
 
 @login_required

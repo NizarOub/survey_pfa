@@ -27,7 +27,7 @@
                 <td>
                     {% if survey.is_active %}
                     <a href="{% url 'detail' survey.pk %}">
-                        <div class="ui button">view</div>
+                        <div class="ui button mb-3">view</div>
                     </a>
                     {% else %}
                     <a href="{% url 'edit' survey.pk %}">
@@ -38,6 +38,7 @@
                         {% csrf_token %}
                         <button class=" ui button">delete</button>
                     </form>
+
                 </td>
                 <td> {{survey.points}} </td>
             </tr>
